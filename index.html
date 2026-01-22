@@ -13,7 +13,6 @@ body {
   transition:1s ease;
 }
 
-/* Floating patangs */
 .kite {
   position:absolute;
   width:90px;
@@ -21,7 +20,6 @@ body {
   z-index:5;
 }
 
-/* Firework bursts */
 #boom {
   position:fixed;
   left:0; top:0;
@@ -44,7 +42,6 @@ body {
   100% { transform:scale(50); opacity:0; }
 }
 
-/* Drag‑your‑own patang */
 #dragKite {
   width:140px;
   position:absolute;
@@ -55,7 +52,6 @@ body {
   z-index:20;
 }
 
-/* Night skyline */
 #lahoreSkyline {
   position: fixed;
   bottom: 0;
@@ -77,62 +73,35 @@ body.night #lahoreSkyline {
   opacity:1;
 }
 
-/* Buttons */
-#toggleNight, #unmuteBtn {
+#toggleNight {
   position:fixed;
   padding:12px 20px;
   border-radius:12px;
   border:none;
   cursor:pointer;
   z-index:999;
-}
-
-#toggleNight {
   bottom:20px;
   right:20px;
   background:#111;
   color:#fff;
-}
-
-#unmuteBtn {
-  bottom:20px;
-  left:20px;
-  background:#ffd800;
 }
 </style>
 </head>
 
 <body>
 
-<!-- Music -->
-<audio id="basantMusic" src="basant.mp3" autoplay loop></audio>
-
-<button id="unmuteBtn">Unmute Music</button>
 <button id="toggleNight">Night Mode</button>
 
-<!-- Skyline -->
 <div id="lahoreSkyline"></div>
 
-<!-- Drag Patang -->
 <img src="kite.png" id="dragKite">
 
-<!-- Fireworks layer -->
 <div id="boom"></div>
 
 <script>
-/* UNMUTE BUTTON */
-const unmuteBtn = document.getElementById("unmuteBtn");
-unmuteBtn.onclick = () => {
-  m.play();
-  unmuteBtn.style.display = "none";
-};
-
-
-/* NIGHT MODE */
 document.getElementById("toggleNight")
 .onclick = ()=> document.body.classList.toggle("night");
 
-/* RANDOM FLOATING PATANGS */
 function makeKite() {
   const k = document.createElement("img");
   k.src = "kite.png";
@@ -150,9 +119,8 @@ function makeKite() {
 
 for (let i=0; i<20; i++) makeKite();
 
-/* CLICK‑TO‑LAUNCH FIREWORKS */
 document.body.addEventListener("click", e => {
-  if (e.target.id === "toggleNight" || e.target.id === "unmuteBtn") return;
+  if (e.target.id === "toggleNight") return;
   const b = document.createElement("div");
   b.className = "burst";
   b.style.left = e.clientX + "px";
@@ -161,11 +129,10 @@ document.body.addEventListener("click", e => {
   setTimeout(()=> b.remove(),1600);
 });
 
-/* DRAG YOUR OWN PATANG */
 const dk = document.getElementById("dragKite");
 let drag=false;
 
-dk.onmousedown = e => {
+dk.onmousedown = () => {
   drag=true;
   dk.style.cursor="grabbing";
 };
@@ -181,7 +148,6 @@ document.onmousemove = e => {
   dk.style.top  = e.clientY + "px";
 };
 
-/* PATANG‑VS‑PATANG CUTTING */
 setInterval(() => {
   const all = [...document.querySelectorAll(".kite")];
   all.forEach(k1 => {
