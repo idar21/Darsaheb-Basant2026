@@ -22,7 +22,7 @@
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
   }
-  
+
 .orbit-container {
   position: relative;
   width: 100%;
@@ -214,20 +214,11 @@ document.getElementById("toggleNight")
 <div class="fireworks" id="boom"></div>
 
 <!-- MAIN CONTENT -->
-<div class="content">
-  <h1>Welcome to Darsaheb's Basant Festival - 2026</h1>
-
-  <!-- KEEPING YOUR IMAGE SOURCE EXACTLY AS YOU HAVE IT -->
+<div class="orbit-container">
   <img src="darsaheb.png" class="festival-img" alt="Festival Photo">
-
-  <p>
-    <strong>Ustad Phadder (Al-mashoor Gujranwalia)</strong><br>
-    Invites you to Lahore Basant 2026!<br><br>
-    O ji, tayyari kar lao — Basant aa gayi te naal le aayi Lahore di mashhoor shor sharaba!<br>
-    Chhattaan te kursiyaan rakho... dor tight rakhiyo... nahi taan bachay kehnde ne "BO KATAA!"<br>
-    Mithai, lemo soda, rang, hawa — sab kuch full masti mode vich!<br>
-  </p>
+  <div id="orbitObjects"></div>
 </div>
+
 
 <script>
 /* SVG KITES BANK */
@@ -321,6 +312,33 @@ function firework() {
 }
 
 setInterval(firework, 2500);
+
+const orbitDiv = document.getElementById("orbitObjects");
+
+function spawnOrbitObjects() {
+  orbitDiv.innerHTML = "";
+
+  const imgs = ["patang.png", "gudda.png"];
+
+  imgs.forEach((src, i) => {
+    const el = document.createElement("img");
+    el.src = src;
+    el.className = "orbit-item";
+    el.style.animationDelay = (i * 1.5) + "s";
+    orbitDiv.appendChild(el);
+  });
+
+  // disappear after 10 seconds
+  setTimeout(() => {
+    orbitDiv.innerHTML = "";
+  }, 10000);
+}
+
+// initial spawn
+spawnOrbitObjects();
+
+// respawn every 10 seconds
+setInterval(spawnOrbitObjects, 10000);
 </script>
 
 </body>
