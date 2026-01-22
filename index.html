@@ -1,124 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Welcome to Darsaheb's Basant Festival - 2026</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: 'Segoe UI', Verdana, Geneva, Tahoma, sans-serif;
-      background: #ffe066;
-      overflow-x: hidden;
-      position: relative;
-    }
+<meta charset="UTF-8">
+<title>Welcome to Darsaheb's Basant Festival - 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: #ffe066;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
 
-    .kites-bg {
-      position: absolute;
-      width: 100vw;
-      height: 100vh;
-      top: 0; left: 0;
-      overflow: hidden;
-      z-index: 0;
-    }
+  /* PATANGS & GUDDAS BACKGROUND */
+  .kites-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+  }
 
-    .kite {
-      position: absolute;
-      width: 70px;
-      height: 70px;
-      transform: rotate(45deg);
-      opacity: 0.85;
-      animation: float 12s infinite linear;
-    }
+  .patang, .gudda {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    opacity: 0.9;
+    animation: float 10s infinite ease-in-out;
+  }
 
-    /* Different kite colors */
-    .kite.red { background: linear-gradient(135deg, #fc466b 60%, #3f5efb 100%);}
-    .kite.blue { background: linear-gradient(135deg, #36d1c4 60%, #1e3c72 100%);}
-    .kite.yellow { background: linear-gradient(135deg, #ffe259 60%, #ffa751 100%);}
-    .kite.green { background: linear-gradient(135deg, #11998e 60%, #38ef7d 100%);}
-    .kite.purple { background: linear-gradient(135deg, #a18cd1 60%, #fbc2eb 100%);}
-    .kite.orange { background: linear-gradient(135deg, #f7971e 60%, #ffd200 100%);}
+  @keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-25px); }
+    100% { transform: translateY(0px); }
+  }
 
-    /* Kite tail */
-    .kite::after {
-      content: '';
-      position: absolute;
-      bottom: -35px;
-      left: 30px;
-      width: 6px;
-      height: 40px;
-      background: repeating-linear-gradient(
-        to bottom,
-        #444 0px, #444 4px,
-        transparent 4px, transparent 8px
-      );
-      border-radius: 3px;
-      transform: rotate(-45deg);
-    }
+  /* Content styles */
+  .content {
+    position: relative;
+    z-index: 5;
+    max-width: 650px;
+    margin: 70px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 18px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+  }
 
-    @keyframes float {
-      0% { transform: translateY(0) rotate(45deg);}
-      50% { transform: translateY(-30px) rotate(45deg);}
-      100% { transform: translateY(0) rotate(45deg);}
-    }
+  h1 {
+    text-align: center;
+    color: #b61c1c;
+    font-size: 2.3rem;
+    margin-bottom: 15px;
+  }
 
-    .content {
-      position: relative;
-      z-index: 1;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 80px 24px 24px 24px;
-      background: rgba(255, 255, 255, 0.82);
-      border-radius: 16px;
-      box-shadow: 0 6px 32px rgba(0,0,0,0.13);
-      margin-top: 50px;
-    }
+  p {
+    text-align: center;
+    font-size: 1.17rem;
+    line-height: 1.65;
+  }
 
-    h1 {
-      text-align: center;
-      font-size: 2.2rem;
-      color: #b61c1c;
-      margin-bottom: 18px;
-      letter-spacing: 1.2px;
-      text-shadow: 2px 2px 0 #fff8dc;
-    }
-
-    p {
-      font-size: 1.15rem;
-      color: #333;
-      margin-bottom: 1.1em;
-      line-height: 1.7;
-      text-align: center;
-    }
-  </style>
+  /* Center the inserted image */
+  .festival-img {
+    display: block;
+    margin: 25px auto;
+    max-width: 80%;
+    border-radius: 14px;
+    box-shadow: 0 5px 22px rgba(0,0,0,0.25);
+  }
+</style>
 </head>
+
 <body>
-  <div class="kites-bg">
-    <div class="kite red" style="top: 12%; left: 7%;"></div>
-    <div class="kite blue" style="top: 20%; left: 70%; width: 80px; height: 80px;"></div>
-    <div class="kite yellow" style="top: 60%; left: 20%;"></div>
-    <div class="kite green" style="top: 78%; left: 60%;"></div>
-    <div class="kite purple" style="top: 43%; left: 82%;"></div>
-    <div class="kite orange" style="top: 30%; left: 50%;"></div>
-    <div class="kite blue" style="top: 75%; left: 10%; width: 60px; height: 60px;"></div>
-    <div class="kite red" style="top: 10%; left: 85%;"></div>
-    <!-- Add more kites as needed -->
-  </div>
-  <div class="content">
-    <h1>Welcome to Darsaheb's Basant Festival - 2026</h1>
-    <p>
-      <strong>Ustad Phadder (Al-mashoor Gujranwalia)</strong><br>
-      Invites you to Lahore Basant 2026.<br><br>
-      Dekho jee, patangaan udaan da maza hi kuch hor hai!<br>
-      Jo paichay nahi lainda, oh ki Lahori!<br>
-      Aao ji, apni chhat te aao, dhol bajaao, te mithai khaao!<br>
-      Ghar de bache, chhat te sambhaal ke, patang udaande hoye milange.<br>
-      Kaka ji, lemo soda tay jalebi ready rakho, guests aan waale ne!<br>
-      Patang chuk lao, te "Bo kataa!" di awaaz Lahore vich goonj uthegi.<br>
-      Yaad rakho, je kite dor khatam ho jaye, gal kar lao neighbour naal!<br>
-      <em>Lahori style, mast vibe, te full on enjoyment!</em>
-    </p>
-  </div>
+
+<!-- BACKGROUND KITES (Patangs & Guddas as SVG) -->
+<div class="kites-bg">
+
+  <!-- Lahori Patang -->
+  <svg class="patang" style="top: 12%; left: 8%;" viewBox="0 0 100 100">
+    <polygon points="50,0 100,50 50,100 0,50"
+      fill="#ff4d4d" stroke="#990000" stroke-width="4"/>
+  </svg>
+
+  <svg class="patang" style="top: 48%; left: 75%;" viewBox="0 0 100 100">
+    <polygon points="50,0 100,50 50,100 0,50"
+      fill="#4dd2ff" stroke="#005f7f" stroke-width="4"/>
+  </svg>
+
+  <!-- Gudda (diamond with tail) -->
+  <svg class="gudda" style="top: 25%; left: 50%;" viewBox="0 0 120 160">
+    <polygon points="60,0 120,60 60,120 0,60"
+      fill="#ffcc33" stroke="#b8860b" stroke-width="4"/>
+    <line x1="60" y1="120" x2="60" y2="160"
+      stroke="#444" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <svg class="gudda" style="top: 70%; left: 15%;" viewBox="0 0 120 160">
+    <polygon points="60,0 120,60 60,120 0,60"
+      fill="#b366ff" stroke="#4b0082" stroke-width="4"/>
+    <line x1="60" y1="120" x2="60" y2="160"
+      stroke="#444" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  <h1>Welcome to Darsaheb's Basant Festival - 2026</h1>
+
+  <!-- Centered Image -->
+  <img src="your-image-file-name.jpg" class="festival-img" alt="Festival Photo">
+
+  <p>
+    <strong>Ustad Phadder (Al-mashoor Gujranwalia)</strong><br>
+    Invites you to Lahore Basant 2026!<br><br>
+
+    O ji, tayyari kar lao — Basant aa gayi te naal le aayi Lahore di mashhoor shor sharaba!<br>
+    Chhattaan te kursiyaan rakho, te neighbour nu dass do ke ajj bohat hullar houna ay!<br>
+    Patangaan waang ghar di bijli vi kabhi kabhi upar neeche honi ay!<br>
+    Dor tight rakhiyo jee, nahi taan bachay kehnde phir "Bo kataa!" te hass hass ke dub marrde ne!<br>
+    Chacha ji kehnde ne: "Je patang na uddi taan hawa nu dosh do — banda kado galti manda ae?"<br>
+    Te mithai te lemo soda taan Basant da Sunnah ne, oh taan lazmi ay jee!<br>
+    Lahore di hawa, rang, maza — full kashmakash te full masti!
+  </p>
+</div>
+
 </body>
 </html>
