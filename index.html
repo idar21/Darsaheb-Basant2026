@@ -174,28 +174,6 @@ document.body.addEventListener("click", e => {
   setTimeout(()=> b.remove(),1600);
 });
 
-setInterval(() => {
-  const all = [...document.querySelectorAll(".kite")];
-  all.forEach(k1 => {
-    const r1 = k1.getBoundingClientRect();
-    all.forEach(k2 => {
-      if (k1 === k2) return;
-      const r2 = k2.getBoundingClientRect();
-      const overlap =
-        !(r1.right < r2.left || 
-          r1.left > r2.right || 
-          r1.bottom < r2.top || 
-          r1.top > r2.bottom);
-
-      if (overlap) {
-        // remove one kite randomly
-        if (Math.random() > 0.5) k2.remove();
-      }
-    });
-  });
-}, 500);
-
-
 document.getElementById("toggleNight")
 .onclick = ()=> document.body.classList.toggle("night");
 </script>
@@ -268,6 +246,28 @@ for (let i = 0; i < 20; i++) {
   d.style.transform = `scale(${0.6 + Math.random()*0.8})`;
   kites.appendChild(d);
 }
+
+setInterval(() => {
+  const all = [...document.querySelectorAll(".kite")];
+  all.forEach(k1 => {
+    const r1 = k1.getBoundingClientRect();
+    all.forEach(k2 => {
+      if (k1 === k2) return;
+      const r2 = k2.getBoundingClientRect();
+      const overlap =
+        !(r1.right < r2.left || 
+          r1.left > r2.right || 
+          r1.bottom < r2.top || 
+          r1.top > r2.bottom);
+
+      if (overlap) {
+        // remove one kite randomly
+        if (Math.random() > 0.5) k2.remove();
+      }
+    });
+  });
+}, 500);
+
 
 /* SPARKLES */
 const spark = document.getElementById("spark");
