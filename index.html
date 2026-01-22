@@ -121,11 +121,12 @@ body.night #lahoreSkyline {
 
 <script>
 /* UNMUTE BUTTON */
-const m = document.getElementById("basantMusic");
-document.getElementById("unmuteBtn").onclick = () => {
+const unmuteBtn = document.getElementById("unmuteBtn");
+unmuteBtn.onclick = () => {
   m.play();
-  unmuteBtn.style.display="none";
+  unmuteBtn.style.display = "none";
 };
+
 
 /* NIGHT MODE */
 document.getElementById("toggleNight")
