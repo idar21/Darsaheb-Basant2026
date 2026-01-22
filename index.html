@@ -33,7 +33,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* SPECIAL EFFECTS LAYERS */
     .kites-bg, .sparkles, .fireworks {
       position: absolute;
       inset: 0;
@@ -42,7 +41,6 @@
       pointer-events: none;
     }
 
-    /* KITE ANIMATION */
     .kite {
       position: absolute;
       width: 130px;
@@ -52,6 +50,17 @@
         float 6s infinite ease-in-out alternate,
         sway 5s infinite ease-in-out alternate,
         drift 25s linear infinite;
+    }
+
+    .kite::after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 80px;
+      left: 50%;
+      top: 120px;
+      background: linear-gradient(#444, transparent);
+      transform: translateX(-50%);
     }
 
     @keyframes float {
@@ -69,7 +78,6 @@
       to { transform: translateX(120vw); }
     }
 
-    /* SPARKLES */
     .spark {
       position: absolute;
       width: 6px;
@@ -86,7 +94,6 @@
       100% { transform: translateY(-110px) scale(0.3); opacity: 0; }
     }
 
-    /* FIREWORK BURSTS */
     .burst {
       position: absolute;
       width: 6px;
@@ -101,7 +108,6 @@
       100% { transform: scale(18); opacity: 0; }
     }
 
-    /* Main content box */
     .content {
       position: relative;
       z-index: 10;
@@ -125,7 +131,7 @@
       text-align: center;
       color: #b61c1c;
       font-size: 2.6rem;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       text-shadow: 0 2px 10px rgba(255,90,90,0.35);
       animation: shimmer 3s ease-in-out infinite;
     }
@@ -135,7 +141,18 @@
       50% { text-shadow: 0 2px 20px rgba(255,160,90,0.6); }
     }
 
-    /* Image hover animation */
+    .fun-banner {
+      text-align: center;
+      margin: 8px auto 0;
+      padding: 8px 18px;
+      display: inline-block;
+      background: #fff1c9;
+      border-radius: 999px;
+      font-weight: 600;
+      color: #8b3a3a;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
     .festival-img {
       display: block;
       margin: 25px auto;
@@ -190,7 +207,6 @@
       opacity: 1;
     }
 
-    /* Sliding footer */
     .footer-slide {
       position: fixed;
       left: 0;
@@ -223,6 +239,48 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-6px); }
     }
+
+    /* Funny Basant add-ons */
+    #boKataa {
+      position: fixed;
+      top: 18%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      padding: 10px 24px;
+      background: rgba(255, 60, 60, 0.9);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      opacity: 0;
+      z-index: 999;
+      transition: 0.4s ease;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    #boKataa.show {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    #kiteWins {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 10px;
+      z-index: 999;
+      font-size: 0.95rem;
+    }
+
+    .emoji-kite {
+      position: absolute;
+      font-size: 32px;
+      animation: drift 18s linear infinite, float 4s ease-in-out infinite;
+      opacity: 0.9;
+    }
   </style>
 </head>
 
@@ -230,14 +288,16 @@
   <button id="toggleNight">Night Mode</button>
   <div id="lahoreSkyline"></div>
 
-  <!-- BACKGROUND EFFECT LAYERS -->
+  <div id="boKataa">BO KATAA!</div>
+  <div id="kiteWins">Kite fights won: 0</div>
+
   <div class="kites-bg" id="kites"></div>
   <div class="sparkles" id="spark"></div>
   <div class="fireworks" id="boom"></div>
 
-  <!-- MAIN CONTENT -->
   <div class="content">
     <h1>Welcome to Darsaheb's Basant Festival - 2026</h1>
+    <div class="fun-banner">Dor tight rakhiyo — warna mamu ki kite udd jayegi!</div>
 
     <img src="darsaheb.png" class="festival-img" alt="Festival Photo">
 
@@ -250,7 +310,6 @@
     </p>
   </div>
 
-  <!-- Sliding Footer -->
   <div class="footer-slide">
     <div class="footer-pill">Created by Team Khudder &amp; Chuppi Kuppi</div>
   </div>
@@ -291,7 +350,7 @@
     const spark = document.getElementById("spark");
     const boom = document.getElementById("boom");
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 26; i++) {
       const d = document.createElement("div");
       d.className = "kite";
       d.innerHTML = kiteSVGs[Math.floor(Math.random() * kiteSVGs.length)];
@@ -309,6 +368,17 @@
       s.style.top = Math.random() * 100 + "%";
       s.style.animationDelay = Math.random() * 4 + "s";
       spark.appendChild(s);
+    }
+
+    // extra emoji kites for fun
+    for (let i = 0; i < 8; i++) {
+      const e = document.createElement("div");
+      e.className = "emoji-kite";
+      e.textContent = "🪁";
+      e.style.top = Math.random() * 80 + "%";
+      e.style.left = (-10 + Math.random() * 110) + "%";
+      e.style.animationDelay = (Math.random() * 6) + "s";
+      kites.appendChild(e);
     }
 
     function firework() {
@@ -331,6 +401,19 @@
       setTimeout(() => b.remove(), 1600);
     });
 
+    // Funny "BO KATAA!" shout + kite fight counter
+    let wins = 0;
+    const winsEl = document.getElementById("kiteWins");
+    const bo = document.getElementById("boKataa");
+
+    function shoutBoKataa() {
+      bo.classList.add("show");
+      setTimeout(() => bo.classList.remove("show"), 900);
+    }
+    setInterval(() => {
+      if (Math.random() > 0.6) shoutBoKataa();
+    }, 3500);
+
     setInterval(() => {
       const all = [...document.querySelectorAll(".kite")];
       all.forEach((k1) => {
@@ -344,7 +427,12 @@
               r1.bottom < r2.top ||
               r1.top > r2.bottom);
 
-          if (overlap && Math.random() > 0.5) k2.remove();
+          if (overlap && Math.random() > 0.5) {
+            k2.remove();
+            wins += 1;
+            winsEl.textContent = `Kite fights won: ${wins}`;
+            if (Math.random() > 0.5) shoutBoKataa();
+          }
         });
       });
     }, 500);
