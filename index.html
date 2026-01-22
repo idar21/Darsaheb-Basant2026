@@ -163,6 +163,16 @@ body.night #lahoreSkyline {
 </style>
 
 <script>
+document.body.addEventListener("click", e => {
+  const b = document.createElement("div");
+  b.className = "burst";
+  b.style.left = e.clientX + "px";
+  b.style.top = e.clientY + "px";
+  b.style.position = "fixed";
+  boom.appendChild(b);
+  setTimeout(()=> b.remove(),1600);
+});
+
 document.getElementById("toggleNight")
 .onclick = ()=> document.body.classList.toggle("night");
 </script>
