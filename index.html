@@ -27,13 +27,63 @@
       z-index: 2;
     }
 
+    body.neon {
+      background: linear-gradient(120deg,#6b00ff,#ff3cac,#4dfcff,#ffbd2f);
+      background-size: 400% 400%;
+    }
+
     @keyframes bgShift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    .kites-bg, .sparkles, .fireworks {
+    /* Top ticker */
+    .ticker {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      z-index: 1000;
+      overflow: hidden;
+      height: 36px;
+      display: flex;
+      align-items: center;
+    }
+    .ticker-track {
+      white-space: nowrap;
+      display: inline-block;
+      padding-left: 100%;
+      animation: tickerMove 18s linear infinite;
+      font-size: 0.95rem;
+    }
+    @keyframes tickerMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* Counters */
+    #stats {
+      position: fixed;
+      top: 50px;
+      left: 20px;
+      display: flex;
+      gap: 8px;
+      z-index: 999;
+    }
+    .badge {
+      background: rgba(0,0,0,0.65);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    }
+
+    /* SPECIAL EFFECTS LAYERS */
+    .kites-bg, .sparkles, .fireworks, .food-float {
       position: absolute;
       inset: 0;
       z-index: 0;
@@ -41,6 +91,7 @@
       pointer-events: none;
     }
 
+    /* KITE ANIMATION */
     .kite {
       position: absolute;
       width: 130px;
@@ -63,6 +114,27 @@
       transform: translateX(-50%);
     }
 
+    /* Tooltip on kites */
+    .kite[data-tip]::before {
+      content: attr(data-tip);
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      opacity: 0;
+      transition: 0.3s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .kite:hover::before {
+      opacity: 1;
+    }
+
     @keyframes float {
       from { transform: translateY(0px); }
       to { transform: translateY(-55px); }
@@ -78,6 +150,7 @@
       to { transform: translateX(120vw); }
     }
 
+    /* SPARKLES */
     .spark {
       position: absolute;
       width: 6px;
@@ -94,6 +167,7 @@
       100% { transform: translateY(-110px) scale(0.3); opacity: 0; }
     }
 
+    /* FIREWORK BURSTS */
     .burst {
       position: absolute;
       width: 6px;
@@ -108,6 +182,22 @@
       100% { transform: scale(18); opacity: 0; }
     }
 
+    /* Kite cut trail */
+    .cut-line {
+      position: absolute;
+      height: 2px;
+      width: 120px;
+      background: rgba(255,255,255,0.8);
+      box-shadow: 0 0 10px rgba(255,255,255,0.8);
+      animation: cutFade 0.9s ease-out forwards;
+      z-index: 5;
+    }
+    @keyframes cutFade {
+      from { opacity: 1; }
+      to { opacity: 0; transform: scaleX(0.3); }
+    }
+
+    /* Main content box */
     .content {
       position: relative;
       z-index: 10;
@@ -120,6 +210,10 @@
       border: 2px solid rgba(255,255,255,0.6);
       animation: glowPulse 4s ease-in-out infinite;
       backdrop-filter: blur(2px);
+    }
+
+    body.neon .content {
+      box-shadow: 0 0 35px rgba(145,255,255,0.5);
     }
 
     @keyframes glowPulse {
@@ -173,11 +267,10 @@
       line-height: 1.7;
     }
 
-    #toggleNight {
+    #toggleNight, #toggleGlow, #toggleMusic {
       position: fixed;
-      bottom: 20px;
       right: 20px;
-      padding: 12px 20px;
+      padding: 10px 16px;
       border-radius: 12px;
       background: #111;
       color: #fff;
@@ -185,6 +278,10 @@
       cursor: pointer;
       z-index: 999;
     }
+
+    #toggleNight { bottom: 20px; }
+    #toggleGlow { bottom: 70px; }
+    #toggleMusic { bottom: 120px; }
 
     #lahoreSkyline {
       position: fixed;
@@ -207,6 +304,7 @@
       opacity: 1;
     }
 
+    /* Sliding footer */
     .footer-slide {
       position: fixed;
       left: 0;
@@ -263,37 +361,60 @@
       transform: translate(-50%, -50%) scale(1.05);
     }
 
-    #kiteWins {
+    /* Confetti bits */
+    .confetti {
       position: fixed;
-      top: 20px;
-      left: 20px;
-      background: rgba(0,0,0,0.6);
-      color: #fff;
-      padding: 8px 14px;
-      border-radius: 10px;
-      z-index: 999;
-      font-size: 0.95rem;
+      width: 6px;
+      height: 6px;
+      background: #ff6;
+      animation: confettiFall 1.2s ease-out forwards;
+      z-index: 1000;
+    }
+    @keyframes confettiFall {
+      from { transform: translateY(0) rotate(0deg); opacity: 1; }
+      to { transform: translateY(120px) rotate(180deg); opacity: 0; }
     }
 
-    .emoji-kite {
+    /* Floating food icons */
+    .food {
       position: absolute;
-      font-size: 32px;
-      animation: drift 18s linear infinite, float 4s ease-in-out infinite;
-      opacity: 0.9;
+      font-size: 28px;
+      opacity: 0.85;
+      animation: foodFloat 10s ease-in-out infinite;
+    }
+    @keyframes foodFloat {
+      0% { transform: translateY(20px); opacity: 0.5; }
+      50% { transform: translateY(-40px); opacity: 1; }
+      100% { transform: translateY(20px); opacity: 0.5; }
     }
   </style>
 </head>
 
 <body>
+  <div class="ticker">
+    <div class="ticker-track">
+      Kite kaat! Aloo tikki aa gayi! • Dor tight rakhiyo! • BO KATAA! • Chhat par party shuru! • Lahore Basant 2026 •
+    </div>
+  </div>
+
   <button id="toggleNight">Night Mode</button>
+  <button id="toggleGlow">Glow Mode</button>
+  <button id="toggleMusic">Play Dhol</button>
+
   <div id="lahoreSkyline"></div>
 
   <div id="boKataa">BO KATAA!</div>
-  <div id="kiteWins">Kite fights won: 0</div>
+  <div id="stats">
+    <div class="badge" id="kiteWins">Kite fights won: 0</div>
+    <div class="badge" id="cheers">Basant cheers: 0</div>
+    <div class="badge" id="pops">Balloons popped: 0</div>
+    <div class="badge" id="countdown">Party starts in: --:--:--</div>
+  </div>
 
   <div class="kites-bg" id="kites"></div>
   <div class="sparkles" id="spark"></div>
   <div class="fireworks" id="boom"></div>
+  <div class="food-float" id="food"></div>
 
   <div class="content">
     <h1>Welcome to Darsaheb's Basant Festival - 2026</h1>
@@ -311,10 +432,23 @@
   </div>
 
   <div class="footer-slide">
-    <div class="footer-pill">Team Khudder &amp; Chuppi Kuppi</div>
+    <div class="footer-pill">Created by Team Khudder &amp; Chuppi Kuppi</div>
   </div>
 
+  <!-- Optional audio (provide dhol.mp3 in same folder) -->
+  <audio id="dholAudio" loop>
+    <source src="dhol.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
+    const kiteTips = [
+      "Dor zyada tight na kar!",
+      "Kite kaat champ!",
+      "Basant king here",
+      "Oye BO KATAA!",
+      "Chhat pe masti!"
+    ];
+
     const kiteSVGs = [
       `<svg viewBox="0 0 100 100">
          <polygon points="50,0 100,50 50,100 0,50"
@@ -349,6 +483,7 @@
     const kites = document.getElementById("kites");
     const spark = document.getElementById("spark");
     const boom = document.getElementById("boom");
+    const food = document.getElementById("food");
 
     for (let i = 0; i < 26; i++) {
       const d = document.createElement("div");
@@ -358,6 +493,7 @@
       d.style.left = Math.random() * 90 + "%";
       d.style.animationDelay = (Math.random() * 5) + "s";
       d.style.transform = `scale(${0.6 + Math.random() * 0.8})`;
+      d.setAttribute("data-tip", kiteTips[Math.floor(Math.random() * kiteTips.length)]);
       kites.appendChild(d);
     }
 
@@ -370,15 +506,16 @@
       spark.appendChild(s);
     }
 
-    // extra emoji kites for fun
-    for (let i = 0; i < 8; i++) {
-      const e = document.createElement("div");
-      e.className = "emoji-kite";
-      e.textContent = "🪁";
-      e.style.top = Math.random() * 80 + "%";
-      e.style.left = (-10 + Math.random() * 110) + "%";
-      e.style.animationDelay = (Math.random() * 6) + "s";
-      kites.appendChild(e);
+    // Floating food icons
+    const foods = ["🍢","🥟","🥤","🍬","🌽"];
+    for (let i = 0; i < 12; i++) {
+      const f = document.createElement("div");
+      f.className = "food";
+      f.textContent = foods[Math.floor(Math.random() * foods.length)];
+      f.style.left = Math.random() * 100 + "%";
+      f.style.top = (60 + Math.random() * 30) + "%";
+      f.style.animationDelay = (Math.random() * 6) + "s";
+      food.appendChild(f);
     }
 
     function firework() {
@@ -391,29 +528,37 @@
     }
     setInterval(firework, 2500);
 
-    document.body.addEventListener("click", (e) => {
-      const b = document.createElement("div");
-      b.className = "burst";
-      b.style.left = e.clientX + "px";
-      b.style.top = e.clientY + "px";
-      b.style.position = "fixed";
-      boom.appendChild(b);
-      setTimeout(() => b.remove(), 1600);
-    });
-
-    // Funny "BO KATAA!" shout + kite fight counter
-    let wins = 0;
-    const winsEl = document.getElementById("kiteWins");
     const bo = document.getElementById("boKataa");
+    const winsEl = document.getElementById("kiteWins");
+    const cheersEl = document.getElementById("cheers");
+    const popsEl = document.getElementById("pops");
+
+    let wins = 0;
+    let cheers = 0;
+    let pops = 0;
 
     function shoutBoKataa() {
       bo.classList.add("show");
       setTimeout(() => bo.classList.remove("show"), 900);
+      cheers += 1;
+      cheersEl.textContent = `Basant cheers: ${cheers}`;
     }
+
     setInterval(() => {
       if (Math.random() > 0.6) shoutBoKataa();
     }, 3500);
 
+    function cutTrail(x, y) {
+      const line = document.createElement("div");
+      line.className = "cut-line";
+      line.style.left = (x - 60) + "px";
+      line.style.top = (y - 1) + "px";
+      line.style.transform = `rotate(${Math.random() * 180}deg)`;
+      document.body.appendChild(line);
+      setTimeout(() => line.remove(), 900);
+    }
+
+    // collisions
     setInterval(() => {
       const all = [...document.querySelectorAll(".kite")];
       all.forEach((k1) => {
@@ -428,6 +573,9 @@
               r1.top > r2.bottom);
 
           if (overlap && Math.random() > 0.5) {
+            const cx = r2.left + r2.width / 2;
+            const cy = r2.top + r2.height / 2;
+            cutTrail(cx, cy);
             k2.remove();
             wins += 1;
             winsEl.textContent = `Kite fights won: ${wins}`;
@@ -437,8 +585,83 @@
       });
     }, 500);
 
+    // Click fireworks & pop counter
+    document.body.addEventListener("click", (e) => {
+      const b = document.createElement("div");
+      b.className = "burst";
+      b.style.left = e.clientX + "px";
+      b.style.top = e.clientY + "px";
+      b.style.position = "fixed";
+      boom.appendChild(b);
+      setTimeout(() => b.remove(), 1600);
+
+      pops += 1;
+      popsEl.textContent = `Balloons popped: ${pops}`;
+    });
+
+    // Confetti on image hover
+    const img = document.querySelector(".festival-img");
+    img.addEventListener("mouseenter", () => {
+      for (let i = 0; i < 20; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = (img.getBoundingClientRect().left + Math.random() * img.offsetWidth) + "px";
+        c.style.top = (img.getBoundingClientRect().top + 20) + "px";
+        c.style.background = ["#ff6","#f6f","#6ff","#ffa500"][Math.floor(Math.random()*4)];
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 1200);
+      }
+    });
+
+    // Parallax skyline
+    const skyline = document.getElementById("lahoreSkyline");
+    document.addEventListener("mousemove", (e) => {
+      const offset = (e.clientX / window.innerWidth - 0.5) * 20;
+      skyline.style.transform = `translateX(${offset}px)`;
+    });
+
+    // Countdown to 8:00 PM today (or tomorrow if passed)
+    const countdownEl = document.getElementById("countdown");
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date();
+      target.setHours(20, 0, 0, 0);
+      if (target <= now) target.setDate(target.getDate() + 1);
+      const diff = target - now;
+      const hrs = String(Math.floor(diff / 3600000)).padStart(2,"0");
+      const mins = String(Math.floor((diff % 3600000) / 60000)).padStart(2,"0");
+      const secs = String(Math.floor((diff % 60000) / 1000)).padStart(2,"0");
+      countdownEl.textContent = `Party starts in: ${hrs}:${mins}:${secs}`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Toggles
     document.getElementById("toggleNight")
       .onclick = () => document.body.classList.toggle("night");
+
+    document.getElementById("toggleGlow")
+      .onclick = () => document.body.classList.toggle("neon");
+
+    // Music toggle
+    const audio = document.getElementById("dholAudio");
+    const musicBtn = document.getElementById("toggleMusic");
+    let playing = false;
+    musicBtn.onclick = async () => {
+      try {
+        if (!playing) {
+          await audio.play();
+          playing = true;
+          musicBtn.textContent = "Pause Dhol";
+        } else {
+          audio.pause();
+          playing = false;
+          musicBtn.textContent = "Play Dhol";
+        }
+      } catch (e) {
+        alert("Add dhol.mp3 in the same folder to play music.");
+      }
+    };
   </script>
 </body>
 </html>
