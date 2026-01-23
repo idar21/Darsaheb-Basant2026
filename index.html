@@ -22,9 +22,8 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.16), transparent 55%);
-      mix-blend-mode: screen;
-      z-index: 2;
+      background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.12), transparent 55%);
+      z-index: 1;
     }
 
     body.neon {
@@ -38,6 +37,7 @@
       100% { background-position: 0% 50%; }
     }
 
+    /* TOP TICKER */
     .ticker {
       position: fixed;
       top: 0;
@@ -63,13 +63,14 @@
       100% { transform: translateX(-100%); }
     }
 
+    /* STATS */
     #stats {
       position: fixed;
       top: 50px;
       left: 20px;
       display: flex;
       gap: 8px;
-      z-index: 999;
+      z-index: 900;
       flex-wrap: wrap;
     }
     .badge {
@@ -82,6 +83,7 @@
       white-space: nowrap;
     }
 
+    /* BACKGROUND LAYERS */
     .kites-bg, .sparkles, .fireworks, .food-float {
       position: absolute;
       inset: 0;
@@ -90,6 +92,7 @@
       pointer-events: none;
     }
 
+    /* KITES */
     .kite {
       position: absolute;
       width: 130px;
@@ -128,9 +131,7 @@
       pointer-events: none;
       white-space: nowrap;
     }
-    .kite:hover::before {
-      opacity: 1;
-    }
+    .kite:hover::before { opacity: 1; }
 
     @keyframes float {
       from { transform: translateY(0px); }
@@ -187,13 +188,14 @@
       to { opacity: 0; transform: scaleX(0.3); }
     }
 
+    /* MAIN CONTENT - ALWAYS ON TOP */
     .content {
       position: relative;
-      z-index: 10;
+      z-index: 50;
       max-width: 680px;
       margin: 80px auto 130px;
       padding: 32px;
-      background: rgba(255,255,255,0.83);
+      background: rgba(255,255,255,0.9);
       border-radius: 20px;
       box-shadow: 0 10px 34px rgba(0,0,0,0.22);
       border: 2px solid rgba(255,255,255,0.6);
@@ -201,9 +203,7 @@
       backdrop-filter: blur(2px);
     }
 
-    body.neon .content {
-      box-shadow: 0 0 35px rgba(145,255,255,0.5);
-    }
+    body.neon .content { box-shadow: 0 0 35px rgba(145,255,255,0.5); }
 
     @keyframes glowPulse {
       0%, 100% { box-shadow: 0 10px 34px rgba(0,0,0,0.22), 0 0 0 rgba(255,170,60,0.0); }
@@ -252,6 +252,7 @@
       text-align: center;
       font-size: 1.2rem;
       line-height: 1.7;
+      color: #222;
     }
 
     #toggleNight, #toggleGlow, #toggleMusic {
@@ -366,10 +367,7 @@
     }
 
     @media (max-width: 768px) {
-      .content {
-        margin: 70px 16px 140px;
-        padding: 20px;
-      }
+      .content { margin: 70px 16px 140px; padding: 20px; }
       h1 { font-size: 2rem; }
       p { font-size: 1rem; }
       .festival-img { max-width: 95%; }
@@ -384,20 +382,13 @@
       #toggleGlow { bottom: 54px; }
       #toggleMusic { bottom: 96px; }
 
-      #stats {
-        top: 42px;
-        left: 10px;
-        max-width: 92%;
-      }
+      #stats { top: 42px; left: 10px; max-width: 92%; }
       .badge { font-size: 0.8rem; }
 
       .ticker { height: 32px; }
       .ticker-track { font-size: 0.85rem; }
 
-      .footer-pill {
-        font-size: 0.9rem;
-        margin-bottom: 12px;
-      }
+      .footer-pill { font-size: 0.9rem; margin-bottom: 12px; }
     }
 
     @media (max-width: 480px) {
@@ -408,10 +399,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      * {
-        animation: none !important;
-        transition: none !important;
-      }
+      * { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
