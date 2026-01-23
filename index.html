@@ -381,3 +381,311 @@
         font-size: 0.85rem;
       }
       #toggleNight { bottom: 12px; }
+      #toggleGlow { bottom: 54px; }
+      #toggleMusic { bottom: 96px; }
+
+      #stats {
+        top: 42px;
+        left: 10px;
+        max-width: 92%;
+      }
+      .badge { font-size: 0.8rem; }
+
+      .ticker { height: 32px; }
+      .ticker-track { font-size: 0.85rem; }
+
+      .footer-pill {
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.7rem; }
+      .fun-banner { font-size: 0.85rem; }
+      .badge { font-size: 0.75rem; }
+      .footer-pill { font-size: 0.8rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="ticker">
+    <div class="ticker-track">
+      Kite kaat! Aloo tikki aa gayi! • Dor tight rakhiyo! • BO KATAA! • Chhat par party shuru! • Lahore Basant 2026 •
+    </div>
+  </div>
+
+  <button id="toggleNight">Night Mode</button>
+  <button id="toggleGlow">Glow Mode</button>
+  <button id="toggleMusic">Play Dhol</button>
+
+  <div id="lahoreSkyline"></div>
+
+  <div id="boKataa">BO KATAA!</div>
+  <div id="stats">
+    <div class="badge" id="kiteWins">Kite fights won: 0</div>
+    <div class="badge" id="countdown">Party starts in: --:--:--</div>
+  </div>
+
+  <div class="kites-bg" id="kites"></div>
+  <div class="sparkles" id="spark"></div>
+  <div class="fireworks" id="boom"></div>
+  <div class="food-float" id="food"></div>
+
+  <div class="content">
+    <h1>Welcome to Darsaheb's Basant Festival - 2026</h1>
+    <div class="fun-banner">Dor tight rakhiyo — warna mamu ki kite udd jayegi!</div>
+
+    <img src="darsaheb.png" class="festival-img" alt="Festival Photo">
+
+    <p>
+      <strong>Ustad Phadder (Al-mashoor Gujranwalia)</strong><br>
+      Invites you to Lahore Basant 2026!<br><br>
+      O ji, tayyari kar lao — Basant aa gayi te naal le aayi Lahore da mashhoor shor sharaba!<br>
+      Chhattaan te kursiyaan rakho... dor tight rakhiyo... nahi taan bachay kehnge "BO KATAA!"<br>
+      Tikke, Kawab, Mithai, lemo soda, hawa — sab kuch full masti mode vich!<br>
+    </p>
+  </div>
+
+  <div class="footer-slide">
+    <div class="footer-pill">Created by Team Khudder &amp; Chuppi Kuppi</div>
+  </div>
+
+  <audio id="dholAudio" loop>
+    <source src="dhol.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const kiteTips = [
+      "Dor zyada tight na kar!",
+      "Kite kaat champ!",
+      "Basant king here",
+      "Oye BO KATAA!",
+      "Chhat pe masti!"
+    ];
+
+    const kiteSVGs = [
+      `<svg viewBox="0 0 100 100">
+         <polygon points="50,0 100,50 50,100 0,50"
+         fill="#ff3333" stroke="#990000" stroke-width="4"/>
+       </svg>`,
+      `<svg viewBox="0 0 100 100">
+         <polygon points="50,0 100,50 50,100 0,50"
+         fill="#33ccff" stroke="#005f7f" stroke-width="4"/>
+       </svg>`,
+      `<svg viewBox="0 0 120 160">
+         <polygon points="60,0 120,60 60,120 0,60"
+         fill="#ffcc33" stroke="#b8860b" stroke-width="4"/>
+         <line x1="60" y1="120" x2="60" y2="160"
+         stroke="#444" stroke-width="4"/>
+       </svg>`,
+      `<svg viewBox="0 0 120 160">
+         <polygon points="60,0 120,60 60,120 0,60"
+         fill="#b366ff" stroke="#4b0082" stroke-width="4"/>
+         <line x1="60" y1="120" x2="60" y2="160"
+         stroke="#444" stroke-width="4"/>
+       </svg>`,
+      `<svg viewBox="0 0 100 100">
+         <polygon points="50,0 100,50 50,100 0,50"
+         fill="#00ffcc" stroke="#003322" stroke-width="4"/>
+       </svg>`,
+      `<svg viewBox="0 0 100 100">
+         <polygon points="50,0 100,50 50,100 0,50"
+         fill="#9933ff" stroke="#330066" stroke-width="4"/>
+       </svg>`
+    ];
+
+    const isMobile = window.innerWidth < 768;
+    const kiteCount = isMobile ? 14 : 26;
+    const sparkleCount = isMobile ? 70 : 120;
+    const foodCount = isMobile ? 8 : 12;
+
+    const kites = document.getElementById("kites");
+    const spark = document.getElementById("spark");
+    const boom = document.getElementById("boom");
+    const food = document.getElementById("food");
+
+    for (let i = 0; i < kiteCount; i++) {
+      const d = document.createElement("div");
+      d.className = "kite";
+      d.innerHTML = kiteSVGs[Math.floor(Math.random() * kiteSVGs.length)];
+      d.style.top = Math.random() * 90 + "%";
+      d.style.left = Math.random() * 90 + "%";
+      d.style.animationDelay = (Math.random() * 5) + "s";
+      d.style.transform = `scale(${0.6 + Math.random() * 0.8})`;
+      d.setAttribute("data-tip", kiteTips[Math.floor(Math.random() * kiteTips.length)]);
+      kites.appendChild(d);
+    }
+
+    for (let i = 0; i < sparkleCount; i++) {
+      const s = document.createElement("div");
+      s.className = "spark";
+      s.style.left = Math.random() * 100 + "%";
+      s.style.top = Math.random() * 100 + "%";
+      s.style.animationDelay = Math.random() * 4 + "s";
+      spark.appendChild(s);
+    }
+
+    const foods = ["🍢","🥟","🥤","🍬","🌽"];
+    for (let i = 0; i < foodCount; i++) {
+      const f = document.createElement("div");
+      f.className = "food";
+      f.textContent = foods[Math.floor(Math.random() * foods.length)];
+      f.style.left = Math.random() * 100 + "%";
+      f.style.top = (60 + Math.random() * 30) + "%";
+      f.style.animationDelay = (Math.random() * 6) + "s";
+      food.appendChild(f);
+    }
+
+    function firework() {
+      const b = document.createElement("div");
+      b.className = "burst";
+      b.style.left = (10 + Math.random() * 80) + "%";
+      b.style.top = (10 + Math.random() * 70) + "%";
+      boom.appendChild(b);
+      setTimeout(() => b.remove(), 1600);
+    }
+    setInterval(firework, 2500);
+
+    const bo = document.getElementById("boKataa");
+    const winsEl = document.getElementById("kiteWins");
+
+    let wins = 0;
+
+    function shoutBoKataa() {
+      bo.classList.add("show");
+      setTimeout(() => bo.classList.remove("show"), 900);
+    }
+
+    setInterval(() => {
+      if (Math.random() > 0.6) shoutBoKataa();
+    }, 3500);
+
+    function cutTrail(x, y) {
+      const line = document.createElement("div");
+      line.className = "cut-line";
+      line.style.left = (x - 60) + "px";
+      line.style.top = (y - 1) + "px";
+      line.style.transform = `rotate(${Math.random() * 180}deg)`;
+      document.body.appendChild(line);
+      setTimeout(() => line.remove(), 900);
+    }
+
+    setInterval(() => {
+      const all = [...document.querySelectorAll(".kite")];
+      all.forEach((k1) => {
+        const r1 = k1.getBoundingClientRect();
+        all.forEach((k2) => {
+          if (k1 === k2) return;
+          const r2 = k2.getBoundingClientRect();
+          const overlap =
+            !(r1.right < r2.left ||
+              r1.left > r2.right ||
+              r1.bottom < r2.top ||
+              r1.top > r2.bottom);
+
+          if (overlap && Math.random() > 0.5) {
+            const cx = r2.left + r2.width / 2;
+            const cy = r2.top + r2.height / 2;
+            cutTrail(cx, cy);
+            k2.remove();
+            wins += 1;
+            winsEl.textContent = `Kite fights won: ${wins}`;
+            if (Math.random() > 0.5) shoutBoKataa();
+          }
+        });
+      });
+    }, 500);
+
+    document.body.addEventListener("click", (e) => {
+      const b = document.createElement("div");
+      b.className = "burst";
+      b.style.left = e.clientX + "px";
+      b.style.top = e.clientY + "px";
+      b.style.position = "fixed";
+      boom.appendChild(b);
+      setTimeout(() => b.remove(), 1600);
+    });
+
+    const img = document.querySelector(".festival-img");
+    img.addEventListener("mouseenter", () => {
+      for (let i = 0; i < 20; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = (img.getBoundingClientRect().left + Math.random() * img.offsetWidth) + "px";
+        c.style.top = (img.getBoundingClientRect().top + 20) + "px";
+        c.style.background = ["#ff6","#f6f","#6ff","#ffa500"][Math.floor(Math.random()*4)];
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 1200);
+      }
+    });
+
+    const skyline = document.getElementById("lahoreSkyline");
+    document.addEventListener("mousemove", (e) => {
+      const offset = (e.clientX / window.innerWidth - 0.5) * 20;
+      skyline.style.transform = `translateX(${offset}px)`;
+    });
+    document.addEventListener("touchmove", (e) => {
+      const t = e.touches[0];
+      const offset = (t.clientX / window.innerWidth - 0.5) * 20;
+      skyline.style.transform = `translateX(${offset}px)`;
+    }, { passive: true });
+
+    // Countdown to Feb 6, 2026 at 8:00 PM
+    const countdownEl = document.getElementById("countdown");
+    const target = new Date("2026-02-06T20:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = target - now;
+
+      if (diff <= 0) {
+        countdownEl.textContent = "Party is live now!";
+        return;
+      }
+
+      const hrs = String(Math.floor(diff / 3600000)).padStart(2, "0");
+      const mins = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+      const secs = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
+      countdownEl.textContent = `Party starts in: ${hrs}:${mins}:${secs}`;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    document.getElementById("toggleNight")
+      .onclick = () => document.body.classList.toggle("night");
+
+    document.getElementById("toggleGlow")
+      .onclick = () => document.body.classList.toggle("neon");
+
+    const audio = document.getElementById("dholAudio");
+    const musicBtn = document.getElementById("toggleMusic");
+    let playing = false;
+    musicBtn.onclick = async () => {
+      try {
+        audio.volume = 0.7;
+        audio.muted = false;
+        if (!playing) {
+          await audio.play();
+          playing = true;
+          musicBtn.textContent = "Pause Dhol";
+        } else {
+          audio.pause();
+          playing = false;
+          musicBtn.textContent = "Play Dhol";
+        }
+      } catch (e) {
+        alert("Add dhol.mp3 in the same folder to play music.");
+      }
+    };
+  </script>
+</body>
+</html>
